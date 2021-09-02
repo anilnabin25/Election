@@ -2,13 +2,27 @@
 pragma solidity ^0.5.0;
 
 contract Election {
-  // Store Candidate
-  string  public candidate;
+  // Model a Candidate
+  struct Candidate {
+    uint id;
+    string name;
+    uint voteCount;
+  }
 
-  //  // Read and write candidate
-  //  string public candidate;
+  // Read/write Candidates
+  mapping(uint => Candidate) public candidates;
+
+  // Store candidate count
+  uint  public candidatesCount;
+
   constructor() public {
-    candidate = "Candidate 1";
+    addCandidate("Candidate 1");
+    addCandidate("Candidate 2");
+  }
+
+  function addCandidate(string memory _name) private {
+    candidatesCount++;
+    candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
   }
 
 }
